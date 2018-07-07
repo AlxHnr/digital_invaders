@@ -101,27 +101,22 @@ struct powerup
 
 extern int init_powerups(void);
 
-extern powerup *new_powerup(const powerup_type type, const powerup_icon icon, const char *text,
-                            const double x, const double y, const double dir_x, const double dir_y,
-                            const double moving_speed, const double speed, const double acceleration,
-                            const weapon_type wpn_type, const int hp, const int hp_max, const int atk,
-                            const int def, const double fire_rate, const Uint8 invert, const Uint8 weapon_block,
-                            const Uint8 move_block, const Uint32 duration);
+extern powerup *new_powerup(const powerup_type type, const powerup_icon icon,
+                            const char *text, const double x, const double y,
+                            const double dir_x, const double dir_y,
+                            const double moving_speed);
 
 #define new_powerup_enchantment(type) \
                                 new_powerup(enchantment, type, "", SDL_GetVideoSurface()->w, \
-                                rand() % (SDL_GetVideoSurface()->h - get_powerup_h(type)), -1, 0, 0.3, \
-                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+                                rand() % (SDL_GetVideoSurface()->h - get_powerup_h(type)), -1, 0, 0.3)
 
 #define new_powerup_status_increase(type) \
                                     new_powerup(status_incrase, type, "", SDL_GetVideoSurface()->w, \
-                                    rand() % (SDL_GetVideoSurface()->h - get_powerup_h(type)), -1, 0, 0.3, \
-                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+                                    rand() % (SDL_GetVideoSurface()->h - get_powerup_h(type)), -1, 0, 0.3)
 
 #define new_powerup_weapon(grade) \
                            new_powerup(weapon_change, grade, "", SDL_GetVideoSurface()->w, \
-                           rand() % (SDL_GetVideoSurface()->h - get_powerup_h(grade)), -1, 0, 0.2, \
-                           0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+                           rand() % (SDL_GetVideoSurface()->h - get_powerup_h(grade)), -1, 0, 0.2)
 
 extern void free_powerup(powerup *object);
 extern powerup *get_first_powerup(void);

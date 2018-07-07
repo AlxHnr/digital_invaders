@@ -54,12 +54,10 @@ int init_powerups(void)
 }
 
 
-powerup *new_powerup(const powerup_type type, const powerup_icon icon, const char *text,
-                     const double x, const double y, const double dir_x, const double dir_y,
-                     const double moving_speed, const double speed, const double acceleration,
-                     const weapon_type wpn_type, const int hp, const int hp_max, const int atk,
-                     const int def, const double fire_rate, const Uint8 invert, const Uint8 weapon_block,
-                     const Uint8 move_block, const Uint32 duration)
+powerup *new_powerup(const powerup_type type, const powerup_icon icon,
+                     const char *text, const double x, const double y,
+                     const double dir_x, const double dir_y,
+                     const double moving_speed)
 {
   /* allocate memory and set new powerup to last powerup */
   if(!first_powerup)
@@ -99,23 +97,23 @@ powerup *new_powerup(const powerup_type type, const powerup_icon icon, const cha
   last_powerup->moving_speed = moving_speed;
   last_powerup->last_move = SDL_GetTicks();
   
-  last_powerup->speed = speed;
-  last_powerup->acceleration = acceleration;
+  last_powerup->speed = 0;
+  last_powerup->acceleration = 0;
   
-  last_powerup->wpn_type = wpn_type;
-  last_powerup->hp = hp;
-  last_powerup->hp_max = hp_max;
+  last_powerup->wpn_type = 0;
+  last_powerup->hp = 0;
+  last_powerup->hp_max = 0;
   
-  last_powerup->atk = atk;
-  last_powerup->def = def;
-  last_powerup->fire_rate = fire_rate;
+  last_powerup->atk = 0;
+  last_powerup->def = 0;
+  last_powerup->fire_rate = 0;
   
-  last_powerup->invert = invert;
-  last_powerup->weapon_block = weapon_block;
-  last_powerup->move_block = move_block;
+  last_powerup->invert = 0;
+  last_powerup->weapon_block = 0;
+  last_powerup->move_block = 0;
   
   last_powerup->start_time = SDL_GetTicks();
-  last_powerup->duration = duration;
+  last_powerup->duration = 0;
   
   return last_powerup;
 }
