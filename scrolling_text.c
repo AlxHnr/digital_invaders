@@ -40,7 +40,7 @@ int init_scrolling_text()
   int counter = 0;
   while(counter < s_text_frames)
   {
-    if(!(scrolling_font[counter] = TTF_OpenFont("gfx/arial.ttf", counter + 15)))
+    if(!(scrolling_font[counter] = TTF_OpenFont("gfx/LiberationSans-Regular.ttf", counter + 15)))
       return 0;
     
     counter++;

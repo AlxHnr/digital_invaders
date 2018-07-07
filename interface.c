@@ -36,7 +36,7 @@ int init_interface(void)
   if(!(health_bar = load_image("gfx/health_bar.png")))
     return 0;
   
-  if(!(interface_font = TTF_OpenFont("gfx/arial.ttf", 20)))
+  if(!(interface_font = TTF_OpenFont("gfx/LiberationSans-Regular.ttf", 20)))
     return 0;
   
   atexit(interface_exit);

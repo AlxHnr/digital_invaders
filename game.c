@@ -1118,9 +1118,9 @@ int init_game(void)
   if(!init_interface())
     return 0;
   
-  if(!(game_font = TTF_OpenFont("gfx/arial.ttf", 26)))
+  if(!(game_font = TTF_OpenFont("gfx/LiberationSans-Regular.ttf", 26)))
     return 0;
-  if(!(game_font_win = TTF_OpenFont("gfx/arial.ttf", 32)))
+  if(!(game_font_win = TTF_OpenFont("gfx/LiberationSans-Regular.ttf", 32)))
     return 0;
   
   atexit(game_exit);
