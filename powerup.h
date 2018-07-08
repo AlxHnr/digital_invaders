@@ -1,6 +1,7 @@
 #ifndef POWERUP_H
 #define POWERUP_H
 
+#include <stdbool.h>
 #include <string.h>
 #include <SDL.h>
 #include <SDL_image.h>

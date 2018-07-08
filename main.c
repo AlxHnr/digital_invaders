@@ -3,6 +3,9 @@
 
 #include "game.h"
 
+#include "gui_engine.h"
+#include "gui_theme.h"
+
 #ifdef __WIN32__
   int WinMain(void)
 #else
@@ -28,6 +31,10 @@
   atexit(TTF_Quit);
   /* init SDL end */
   
+  if(!g_init_everything())
+    exit(EXIT_FAILURE);
+  set_gui_theme();
+  
   if(!init_game())
     exit(EXIT_FAILURE);
   
@@ -45,6 +52,8 @@
       game_run_over();
     else if(GAME_MODE == game_outro)
       game_run_outro();
+    
+    g_destroy_everything();
     
     if(GAME_MODE == game_restart)
       GAME_MODE = game_running;

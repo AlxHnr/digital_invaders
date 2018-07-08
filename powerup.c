@@ -1,4 +1,5 @@
 #include "powerup.h"
+#include "spaceship.h"
 
 static powerup *first_powerup = NULL;
 static powerup *last_powerup = NULL;
@@ -139,8 +140,45 @@ void move_all_powerups(void)
 {
   powerup *tmp_powerup = first_powerup;
   powerup *cache_powerup = NULL;
+  extern bool ai_controlled_powerups, ai_controlled_weapons, ai_controlled_debuffs;
+  spaceship *ship = get_spaceship();
+  
   while(tmp_powerup)
   {
+    if(ai_controlled_powerups &&
+       tmp_powerup->icon >= icon_carry &&
+       tmp_powerup->icon <= icon_ansi &&
+       ship->x < tmp_powerup->x)
+    {
+      if(ship->y < tmp_powerup->y)
+        tmp_powerup->dir_y = -1 * (ship->y - tmp_powerup->y)/(ship->x - tmp_powerup->x);
+      else
+        tmp_powerup->dir_y = (ship->y - tmp_powerup->y)/(tmp_powerup->x - ship->x);
+    }
+    else if(ai_controlled_weapons &&
+       tmp_powerup->icon <= icon_weapon_grade_4 &&
+       ship->x < tmp_powerup->x)
+    {
+      if(ship->y < tmp_powerup->y)
+        tmp_powerup->dir_y = -1 * (ship->y - tmp_powerup->y)/(ship->x - tmp_powerup->x);
+      else
+        tmp_powerup->dir_y = (ship->y - tmp_powerup->y)/(tmp_powerup->x - ship->x);
+    }
+    else if(ai_controlled_debuffs &&
+            tmp_powerup->icon >= icon_problem &&
+            tmp_powerup->icon <= icon_idempotency &&
+            ship->x < tmp_powerup->x)
+    {
+      if(ship->y < tmp_powerup->y)
+        tmp_powerup->dir_y = (ship->y - tmp_powerup->y)/(ship->x - tmp_powerup->x);
+      else
+        tmp_powerup->dir_y = -1 * (ship->y - tmp_powerup->y)/(tmp_powerup->x - ship->x);
+    }
+    else
+    {
+      tmp_powerup->dir_y = 0.0;
+    }
+    
     tmp_powerup->x += tmp_powerup->dir_x * (SDL_GetTicks() - tmp_powerup->last_move) * tmp_powerup->moving_speed;
     tmp_powerup->y += tmp_powerup->dir_y * (SDL_GetTicks() - tmp_powerup->last_move) * tmp_powerup->moving_speed;
     

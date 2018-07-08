@@ -214,7 +214,7 @@ void enemy_dodge(enemy *this)
   for(tmp_bullet = get_first_bullet(); tmp_bullet; tmp_bullet = tmp_bullet->next)
   {
     /* return if bullet is not shot from player or bullet is behind 'this' */
-    if((tmp_bullet->team != player_team) ||
+    if((tmp_bullet->team == enemy_team) ||
        (tmp_bullet->x > this->x + get_enemy_w(this->level)))
       continue;
     

@@ -1157,6 +1157,7 @@ void game_pause(void)
   for(counter = 0; counter < POWERUP_ICON_MAX; counter++)
     next_powerup_spawn[counter] += SDL_GetTicks() - pause_start;
 }
+
 void game_run(void)
 {
   SDL_Surface *screen = SDL_GetVideoSurface();
@@ -1175,6 +1176,9 @@ void game_run(void)
   /* setup spaceship */
   ship->x = 0;
   ship->y = screen->h/2 - get_spaceship_h()/2 - 50;
+  
+  /* setup developers panel */
+  create_developers_panel();
   
   /* fade in loop */
   double fade_alpha = 1.0;
@@ -1200,6 +1204,8 @@ void game_run(void)
     blit_scrolling_map(screen);
     blit_spaceship(screen);
     blit_interface(screen);
+    
+    g_draw_everything(screen);
     
     /* fade in */
     fade_alpha -= (SDL_GetTicks() - last_fade) * 0.005;
@@ -1331,6 +1337,8 @@ void game_run(void)
     blit_all_scrolling_texts(screen);
     blit_interface(screen);
     
+    g_draw_everything(screen);
+    
     /* update screen and keep framerate */
     SDL_Flip(screen);
     controll_framerate();
@@ -1358,6 +1366,12 @@ void game_run_menu(void)
   
   SDL_Surface *text_de_surface = TTF_RenderText_Blended(game_font, "Digital Invaders", text_color);
   SDL_Rect text_de_dst = {screen->w/2 - text_de_surface->w/2, screen->h/2 - text_de_surface->h/2 - 33, 0, 0};
+  
+  text_color.r = 255;
+  SDL_Surface *cache_surface = TTF_RenderText_Blended(game_font_win, "Tomato Patch", text_color);
+  SDL_Surface *text_dev_surface = rotozoomSurface(cache_surface, 30.0, 1.0, SMOOTHING_ON);
+  SDL_FreeSurface(cache_surface);
+  SDL_Rect text_dev_dst = {screen->w/2, screen->h/2 - text_dev_surface->h/2, 0, 0};
   
   Uint32 last_fade = SDL_GetTicks();
   double fade_alpha = 1.0;
@@ -1400,6 +1414,7 @@ void game_run_menu(void)
     /* write texts */
     SDL_BlitSurface(text_space_surface, NULL, screen, &text_space_dst);
     SDL_BlitSurface(text_de_surface, NULL, screen, &text_de_dst);
+    SDL_BlitSurface(text_dev_surface, NULL, screen, &text_dev_dst);
     
     /* handle runlevel */
     if(runlevel == 0)
@@ -1442,6 +1457,7 @@ void game_run_menu(void)
   
   SDL_FreeSurface(text_space_surface);
   SDL_FreeSurface(text_de_surface);
+  SDL_FreeSurface(text_dev_surface);
 }
 void game_run_over(void)
 {

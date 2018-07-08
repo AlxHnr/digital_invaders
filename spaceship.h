@@ -11,8 +11,8 @@
 #define SLOW_DOWN 0.0003
 
 #define SPACESHIP_HP_MAX 7965
-#define SPACESHIP_SPEED_MAX 0.3
-#define SPACESHIP_ACCELLERATION_MAX 0.0015
+#define SPACESHIP_SPEED_MAX 1.0
+#define SPACESHIP_ACCELLERATION_MAX 0.05
 
 typedef struct spaceship spaceship;
 struct spaceship
@@ -36,6 +36,7 @@ struct spaceship
 /* return a pointer to the spaceship on success, otherwise NULL */
 extern int init_spaceship(void);
 extern spaceship *get_spaceship(void);
+extern SDL_Surface *get_spaceship_sprite(void);
 extern int get_spaceship_w(void);
 extern int get_spaceship_h(void);
 

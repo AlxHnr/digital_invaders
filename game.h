@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include <SDL_gfxPrimitives.h>
 #include <SDL_ttf.h>
+#include <SDL_rotozoom.h>
 
 #include "framerate.h"
 #include "bullet.h"
@@ -17,6 +18,9 @@
 #include "spaceship_enchantments.h"
 #include "interface.h"
 #include "ai.h"
+
+#include "gui_engine.h"
+#include "developers_panel.h"
 
 /* runlevel */
 typedef enum

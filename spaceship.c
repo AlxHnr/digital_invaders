@@ -23,6 +23,10 @@ spaceship *get_spaceship(void)
 {
   return &ship;
 }
+SDL_Surface *get_spaceship_sprite(void)
+{
+  return spaceship_sprite;
+}
 int get_spaceship_w(void)
 {
   return spaceship_sprite->w;

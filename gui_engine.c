@@ -1078,7 +1078,7 @@ static int g_SDL_EventFilter(const SDL_Event *event)
             active_input_box->input.first_character += active_input_box->input.char_amount_w;
         }
         else if(strlen(active_input_box->input.text) < G_TEXT_LENGTH - 1 &&
-                !(active_input_box->input.limit > 0 && strlen(active_input_box->input.text) > active_input_box->input.limit) &&
+                !(active_input_box->input.limit > 0 && strlen(active_input_box->input.text) >= active_input_box->input.limit) &&
                 ((active_input_box->input.flags.numbers && event->key.keysym.unicode >= '0' && event->key.keysym.unicode <= '9') ||
                 (active_input_box->input.flags.letters &&
                   ((active_input_box->input.flags.uppercase && event->key.keysym.unicode >= 'A' && event->key.keysym.unicode <= 'Z') ||
@@ -1217,6 +1217,16 @@ static int g_SDL_EventFilter(const SDL_Event *event)
         clicked_slider->slider.value = 0;
       else if(clicked_slider->slider.value > clicked_slider->slider.max_value)
         clicked_slider->slider.value = clicked_slider->slider.max_value;
+      
+      /* call widget event function */
+      if(clicked_slider->event_function)
+      {
+        gui_event.type = G_MOUSE_MOTION;
+        gui_event.x = event->button.x - clicked_slider->window->x - x;
+        gui_event.y = event->button.y - clicked_slider->window->y - y;
+        
+        clicked_slider->event_function(&gui_event, clicked_slider, clicked_slider->event_data);
+      }
       
       return 0;
     }

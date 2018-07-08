@@ -1,4 +1,6 @@
 #include "bullet.h"
+#include "enemy.h"
+#include "spaceship.h"
 
 static SDL_Surface *bullet_sprite[BULLET_TYPE_MAX];
 
@@ -116,9 +118,41 @@ void move_all_bullets(void)
 {
   bullet *tmp_bullet = first_bullet;
   bullet *cache_bullet = NULL;
+  extern bool ai_controlled_bullets, ai_controlled_enemy_bullets;
+  enemy *tmp_enemy = NULL;
+  spaceship *ship = get_spaceship();
+  double last_dist, dist;
   
   while(tmp_bullet)
   {
+    if(ai_controlled_bullets && tmp_bullet->team == player_team)
+    {
+      last_dist = 1000000.0;
+      for(tmp_enemy = get_first_enemy(); tmp_enemy; tmp_enemy = tmp_enemy->next)
+      {
+        if(tmp_bullet->x > tmp_enemy->x + get_enemy_w(tmp_enemy->level))
+          continue;
+        
+        dist = sqrt(pow(tmp_enemy->x - tmp_bullet->x, 2) + pow(tmp_enemy->y - tmp_bullet->x, 2));
+        if(dist < last_dist)
+        {
+          tmp_bullet->dir_y = ((tmp_enemy->y + get_enemy_h(tmp_enemy->level)/2) - tmp_bullet->y)/
+                               (tmp_enemy->x - tmp_bullet->x);
+          last_dist = dist;
+        }
+      }
+      
+      if(last_dist == 1000000.0)
+        tmp_bullet->dir_y = 0;
+    }
+    else if(ai_controlled_enemy_bullets && tmp_bullet->team == enemy_team)
+    {
+      if(ship->y < tmp_bullet->y)
+        tmp_bullet->dir_y = (ship->y - tmp_bullet->y)/(ship->x - tmp_bullet->x);
+      else
+        tmp_bullet->dir_y = -1 * (ship->y - tmp_bullet->y)/(tmp_bullet->x - ship->x);
+    }
+    
     tmp_bullet->x += tmp_bullet->dir_x * (SDL_GetTicks() - tmp_bullet->last_move) * tmp_bullet->speed;
     tmp_bullet->y += tmp_bullet->dir_y * (SDL_GetTicks() - tmp_bullet->last_move) * tmp_bullet->speed;
     

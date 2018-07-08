@@ -14,7 +14,7 @@ void handle_collision(void)
   while(tmp_bullet)
   {
     /* check collision between ship and bullet */
-    if(tmp_bullet->team != player_team &&
+    if(tmp_bullet->team == enemy_team &&
        tmp_bullet->x + get_bullet_w(tmp_bullet->type) > tmp_ship->x &&
        tmp_bullet->x < tmp_ship->x + get_spaceship_w() &&
        tmp_bullet->y + get_bullet_h(tmp_bullet->type) > tmp_ship->y &&
@@ -39,7 +39,7 @@ void handle_collision(void)
     
     /* check each enemy for collision with bullet */
     tmp_enemy = get_first_enemy();
-    while(tmp_bullet->team != enemy_team && tmp_enemy)
+    while(tmp_bullet->team == player_team && tmp_enemy)
     {
       if(tmp_bullet->shot_by != tmp_enemy &&
          tmp_ship->x + get_spaceship_w() < tmp_enemy->x &&

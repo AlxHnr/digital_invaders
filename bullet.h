@@ -2,6 +2,7 @@
 #define BULLET_H
 
 #include <math.h>
+#include <stdbool.h>
 #include <SDL.h>
 #include <SDL_image.h>
 
