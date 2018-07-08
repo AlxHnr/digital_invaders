@@ -7,8 +7,8 @@ the screen contains a health bar and a point counter. Checkout the other
 branches for extras.
 
 **Note**: This repository contains a copy of the
-[LiberationSans-Regular font](https://pagure.io/liberation-fonts), which is
-available under the SIL Open Font License, Version 1.1.
+[Liberation Sans Regular font](https://pagure.io/liberation-fonts), which
+is available under the SIL Open Font License, Version 1.1.
 
 ### Controls
 
