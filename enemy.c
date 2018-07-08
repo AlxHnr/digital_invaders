@@ -222,9 +222,9 @@ void enemy_dodge(enemy *this)
     if((tmp_bullet->y + (this->x - tmp_bullet->x) * tmp_bullet->dir_y) + get_bullet_h(tmp_bullet->type) > this->y &&
        (tmp_bullet->y + (this->x - tmp_bullet->x) * tmp_bullet->dir_y) < this->y + get_enemy_h(this->level))
     {
-      if(tmp_bullet->y + get_bullet_h(tmp_bullet->type)/2 < SDL_GetVideoSurface()->h/3)
+      if(tmp_bullet->y + get_bullet_h(tmp_bullet->type)/2 < 329/3)
         this->next_dodge = 1;
-      else if(tmp_bullet->y + get_bullet_h(tmp_bullet->type)/2 > SDL_GetVideoSurface()->h * 0.75)
+      else if(tmp_bullet->y + get_bullet_h(tmp_bullet->type)/2 > 329 * 0.75)
         this->next_dodge = -1;
       
       this->dir_y = this->next_dodge;

@@ -69,7 +69,7 @@ void AI_move_into_screen_and_dodge(enemy *this)
   }
   
   enemy_move(this);
-  enemy_shot(this);
+  //~ enemy_shot(this);
 }
 void AI_move_into_screen_and_dodge_quick(enemy *this)
 {

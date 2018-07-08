@@ -1,6 +1,7 @@
 P_NAME  = digital_invaders
 OBJECTS = main scrolling_tile framerate graphic bullet spaceship enemy collision \
-	  scrolling_text weapon powerup spaceship_enchantments game interface ai
+	  scrolling_text weapon powerup spaceship_enchantments game interface ai \
+	  gui_engine gui_theme presentation
 
 # flags
 CFLAGS  = -Wall -Wextra -O2 `sdl-config --cflags`
