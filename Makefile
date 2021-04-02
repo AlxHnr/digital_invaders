@@ -12,7 +12,7 @@ all:   $(P_NAME)/$(P_NAME)
 
 # build main program
 $(P_NAME)/$(P_NAME): $(OBJECTS:%=obj/%.o) $(P_NAME)
-	$(CC) $(LDFLAGS) $(OBJECTS:%=obj/%.o) -o $(P_NAME)/$(P_NAME)
+	$(CC) $(OBJECTS:%=obj/%.o) $(LDFLAGS) -o $(P_NAME)/$(P_NAME)
 
 # create main directory
 $(P_NAME):
